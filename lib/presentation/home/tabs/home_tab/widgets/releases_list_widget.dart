@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/domain/entities/ReleasesEntity.dart';
 import 'package:movies_app/presentation/home/tabs/home_tab/widgets/releases_item_widget.dart';
 
 import '../view_model/home_tab_view_model.dart';
@@ -55,7 +56,11 @@ class _ReleasesListWidgetState extends State<ReleasesListWidget> {
                 scrollDirection: Axis.horizontal,
                 gridDelegate:
                     SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
-                itemBuilder: (context, index) => ReleasesItemWidget(releasesEntity: state.releases[index]),
+                itemBuilder: (context, index) => InkWell(
+                    onTap: () {
+               //       Navigator.pushNamed(context, routeName,arguments: state.releases[index].id);
+                    },
+                    child: ReleasesItemWidget(releasesEntity: state.releases[index])),
                 itemCount: state.releases.length,
               ),
             ),
