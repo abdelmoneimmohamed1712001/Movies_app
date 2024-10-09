@@ -30,6 +30,11 @@ static final ThemeData lightTheme = ThemeData(
     showUnselectedLabels: true
   ),
   textTheme: TextTheme(
+    titleLarge: TextStyle(
+      fontSize: 22.sp,
+      fontWeight: FontWeight.w400,
+      color: Colors.white
+    ),
     titleMedium: TextStyle(
       fontSize: 14.sp,
       fontWeight: FontWeight.w400,
