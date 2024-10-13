@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/config/theme/my_theme.dart';
+import 'package:movies_app/presentation/home/details_screen/view/details_screen.dart';
 import 'package:movies_app/presentation/home/home_screen.dart';
 import 'package:movies_app/presentation/home/tabs/browse_tab/movies_screen/view/movies_screen.dart';
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         routes: {
           RoutesManager.homeRoute : (context) => HomeScreen(),
           RoutesManager.moviesRoute:(context) => MoviesScreen(),
+          RoutesManager.detailsRoute:(context) => DetailsScreen(),
         },
         initialRoute: RoutesManager.homeRoute,
       ),

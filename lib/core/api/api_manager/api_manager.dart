@@ -17,7 +17,7 @@ class ApiManager {
     dio.options.headers['Authorization'] = 'Bearer $token';
     if (pathParams != null) {
       pathParams.forEach((key, value) {
-        endPoint = endPoint.replaceAll('{$key}', value.toString());
+        endPoint = endPoint.replaceAll('{$key}', value);
       });}
     var response = await dio.get(endPoint, queryParameters: queryParameters);
     return response;
