@@ -13,35 +13,33 @@ class PopularItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 410.w,
+      width: 460.w,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Stack(
             children: [
-              // CachedNetworkImage(
-              //   height: 217.h,
-              //   imageUrl: popularEntity.posterPath ??'',
-              //   imageBuilder: (context, imageProvider) => CircleAvatar(
-              //     backgroundImage: imageProvider,
-              //     radius: 0,
-              //   ),
-              //   placeholder: (context, url) => CircularProgressIndicator(),
-              //   errorWidget: (context, url, error) => Icon(Icons.error),
-              // ),
               Container(
                 width: 410.w,
-                height: 350.h,
+                height: 440.h,
               ),
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  Image.asset(
-                    AssetsManager.dora,
-                    width: double.infinity,
-                    height: 217.h,
+                  CachedNetworkImage(
+                    height: 350.h,
+                    width: 412.w,
                     fit: BoxFit.cover,
+                    imageUrl: 'https://image.tmdb.org/t/p/w500${popularEntity.backdropPath}',
+                    imageBuilder: (context, imageProvider) => Padding(
+                      padding: REdgeInsets.all(8.0),
+                      child: Image(image: imageProvider,
+
+                      ),
+                    ),
+                    placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                   IconButton(
                       onPressed: () {},
@@ -53,15 +51,26 @@ class PopularItemWidget extends StatelessWidget {
                 ],
               ),
               Positioned(
-                  top: 120.h,
+                  bottom: 20.h,
                   left: 20.w,
                   child: Stack(
                     alignment: Alignment.topLeft,
                     children: [
-                      Image.asset(AssetsManager.dora2),
+                      CachedNetworkImage(
+                        height: 250.h,
+                        imageUrl: 'https://image.tmdb.org/t/p/w500${popularEntity.posterPath}',
+                        imageBuilder: (context, imageProvider) => Padding(
+                          padding: REdgeInsets.all(8.0),
+                          child: Image(image: imageProvider,
+
+                          ),
+                        ),
+                        placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
                       Positioned(
-                        top: -17.h,
-                        left: -17.w,
+                        top: -9.h,
+                        left: -10.w,
                         child: Opacity(
                           opacity: .9,
                           child: IconButton(
@@ -74,7 +83,7 @@ class PopularItemWidget extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: REdgeInsets.all(4.0),
+                        padding: REdgeInsets.all(10.0),
                         child: Icon(
                           Icons.add,
                           color: Colors.white,
@@ -83,8 +92,8 @@ class PopularItemWidget extends StatelessWidget {
                     ],
                   )),
               Positioned(
-                top: 260.h,
-                left: 160.w,
+                top: 340.h,
+                left: 180.w,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

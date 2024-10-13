@@ -14,26 +14,30 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<HomeTabViewModel>(),
-      child: Column(
-        children: [
-          PopularListWidget(),
-          Container(
-            padding: REdgeInsets.all(10),
-            height: 240.h,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: ColorsManager.middleGrey,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('New Releases',style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontSize: 15.sp
-                ),),
-                ReleasesListWidget(),
-              ],
-            ),
-          )
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: PopularListWidget(),
+          ),
+          SliverToBoxAdapter(
+             child: Container(
+                padding: REdgeInsets.all(10),
+                height: 240.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: ColorsManager.middleGrey,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('New Releases',style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontSize: 15.sp
+                    ),),
+                    ReleasesListWidget(),
+                  ],
+                ),
+              )
+          ),
         ],
       )
     );

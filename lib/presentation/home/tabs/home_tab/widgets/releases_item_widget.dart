@@ -9,21 +9,34 @@ class ReleasesItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CachedNetworkImage(
-          height: 128.h,
-          imageUrl: releasesEntity.posterPath ??'',
-          imageBuilder: (context, imageProvider) => CircleAvatar(
-            backgroundImage: imageProvider,
-            radius: 0,
-          ),
-          placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-        ),
-        Text(releasesEntity.title??'',style: TextStyle(color: Colors.white),),
+    return Container(
+      width: 108.w,
+      height: 127,
+      child: Card(
+        child: Stack(
+          alignment: Alignment.topLeft,
+          children: [CachedNetworkImage(
+            imageUrl: 'https://image.tmdb.org/t/p/w500${releasesEntity.posterPath}',
+            imageBuilder: (context, imageProvider) => Image(image: imageProvider,
 
-      ],
+            ),
+            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
+            Positioned(
+                left: -9,
+                top: -6,
+                child: Opacity(
+                    opacity: .8,
+                    child: Icon(Icons.bookmark,color: Colors.grey,size: 40,))),
+            Positioned(
+
+                child: Opacity(
+                    opacity: .8,
+                    child: Icon(Icons.add,color: Colors.white,size: 20,))),],
+        )
+
+      ),
     );
   }
 }
