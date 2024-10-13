@@ -5,77 +5,62 @@ import 'package:movies_app/domain/entities/CategoriesEntity.dart';
 import 'package:movies_app/presentation/home/tabs/browse_tab/view_model/browse_tab_view_model.dart';
 import 'package:movies_app/presentation/home/tabs/browse_tab/widgets/browse_item_widget.dart';
 
-import '../../../../../../core/utils/routes_manager/routes_manager.dart';
-import '../view_model/movies_tab_view_model.dart';
-import 'movies_item_widget.dart';
+import '../view_model/details_tab_view_model.dart';
+import 'details_item_widget.dart';
 
-class MoviesListWidget extends StatefulWidget {
-  final String categoryId;
-  MoviesListWidget({required this.categoryId});
+class DetailsListWidget extends StatefulWidget {
+  final String movieId;
+  DetailsListWidget({required this.movieId});
 
   @override
-  State<MoviesListWidget> createState() => _MoviesListWidgetState();
+  State<DetailsListWidget> createState() => _DetailsListWidgetState();
 }
 
-class _MoviesListWidgetState extends State<MoviesListWidget> {
+class _DetailsListWidgetState extends State<DetailsListWidget> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final MoviesTabViewModel viewModel =
-          BlocProvider.of<MoviesTabViewModel>(context);
-      viewModel.getCategories(widget.categoryId);
+      final DetailsTabViewModel viewModel =
+          BlocProvider.of<DetailsTabViewModel>(context);
+      viewModel.getDetails(widget.movieId);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MoviesTabViewModel, MoviesTabState>(
+    return BlocConsumer<DetailsTabViewModel, DetailsTabState>(
       buildWhen: (prevState, currentState) {
-        if(currentState is MoviesSuccessState){
+        if(currentState is DetailsSuccessState){
           return true;
         }
         return false;
       },
       listenWhen: (prevState, currentState) {
-        if(currentState is MoviesErrorState){
+        if(currentState is DetailsErrorState){
           return true;
         }
-        if(currentState is MoviesLoadingState){
+        if(currentState is DetailsLoadingState){
           return true ;
         }
-        if(currentState is MoviesSuccessState){
+        if(currentState is DetailsSuccessState){
           return true ;
         }
         return false;
       },
       builder: (context, state) {
-        if (state is MoviesSuccessState) {
-          return SizedBox(
-            height: 900.h,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: GridView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: state.movies.length,
-                  gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 0),
-                  itemBuilder:(context, index) => InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, RoutesManager.detailsRoute,arguments: {
-                          'id': state.movies[index].id.toString(),
-                          'title': state.movies[index].title.toString(),
-                        });
-                      },
-                      child: MoviesItemWidget(moviesEntity: state.movies[index]))),
-            ),
+        if (state is DetailsSuccessState) {
+          return Container(
+            height: 570.h,
+            child: DetailsItemWidget(detailsEntity: state.details,),
           );
+
         }
         return Container();
       },
       listener: (context, state) {
-        if (state is MoviesLoadingState) {
+        if (state is DetailsLoadingState) {
           showDialog(
             context: context,
             builder: (context) => Center(
@@ -97,7 +82,7 @@ class _MoviesListWidgetState extends State<MoviesListWidget> {
             ),
           );
         }
-        if (state is MoviesErrorState) {
+        if (state is DetailsErrorState) {
           showDialog(
             context: context,
             builder: (context) => Center(
@@ -114,7 +99,7 @@ class _MoviesListWidgetState extends State<MoviesListWidget> {
             ),
           );
         }
-        if (state is MoviesSuccessState) {
+        if (state is DetailsSuccessState) {
           Navigator.pop(context);
         }
       },

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/utils/routes_manager/routes_manager.dart';
 import 'package:movies_app/domain/entities/ReleasesEntity.dart';
 import 'package:movies_app/presentation/home/tabs/home_tab/widgets/releases_item_widget.dart';
 
@@ -52,17 +53,17 @@ class _ReleasesListWidgetState extends State<ReleasesListWidget> {
             child: SizedBox(
               height: 190.h,
 
-              child: GridView.builder(
-                scrollDirection: Axis.horizontal,
-                gridDelegate:
-                    SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
-                itemBuilder: (context, index) => InkWell(
-                    onTap: () {
-               //       Navigator.pushNamed(context, routeName,arguments: state.releases[index].id);
-                    },
-                    child: ReleasesItemWidget(releasesEntity: state.releases[index])),
+              child: ListView.builder(
                 itemCount: state.releases.length,
-              ),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => InkWell(
+                onTap: () {
+          Navigator.pushNamed(context, RoutesManager.detailsRoute,arguments: {
+          'id': state.releases[index].id.toString(),
+          'title': state.releases[index].title.toString(),
+          });
+          },
+              child: ReleasesItemWidget(releasesEntity: state.releases[index])),)
             ),
           );
         }

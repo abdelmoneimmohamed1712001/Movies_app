@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/presentation/home/tabs/home_tab/widgets/popular_item_widget.dart';
 
+import '../../../../../core/utils/routes_manager/routes_manager.dart';
 import '../view_model/home_tab_view_model.dart';
 
 class PopularListWidget extends StatefulWidget {
@@ -60,9 +61,16 @@ class _PopularListWidgetState extends State<PopularListWidget> {
         return  CarouselSlider.builder(
               itemCount: state.popular.length,
               itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
-                  PopularItemWidget(popularEntity: state.popular[itemIndex]),
+                  InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, RoutesManager.detailsRoute,arguments: {
+                          'id': state.popular[itemIndex].id.toString(),
+                          'title': state.popular[itemIndex].title.toString(),
+                        });
+                      },
+                      child: PopularItemWidget(popularEntity: state.popular[itemIndex])),
               options: CarouselOptions(
-                height: 410.h,
+                height: 510.h,
                 aspectRatio: 16/9,
                 viewportFraction: 1,
                 initialPage: 0,
